@@ -9,7 +9,7 @@
 - Next.js 15 + React Flow for visual canvas
 - Focused on e-com stores
 
-- [ ] Build hero landing page for e-com audience
+- [x] Build hero landing page for e-com audience
 - [ ] deploy to vercel
 - [ ] Dynamic persona input form
 - [ ] Basic results page skeleton

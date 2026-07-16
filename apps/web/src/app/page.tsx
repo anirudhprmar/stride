@@ -1,3 +1,4 @@
+import Hero from "@/components/landing/hero";
 import { homePageStructuredData } from "../lib/contants";
 
 export default function Home() {
@@ -10,8 +11,9 @@ export default function Home() {
         }}
       />
 
-      {/* Your Page Content */}
-      <main className="bg-red-400 text-2xl">Home</main>
+      <main className="">
+        <Hero />
+      </main>
     </>
   );
 }

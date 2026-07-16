@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@/styles/globals.css";
 import {
   OG_DESCRIPTION,
   OG_IMAGE_PATH,
@@ -9,10 +10,16 @@ import {
   URLs,
 } from "../lib/contants";
 import { websiteSchema, organizationSchema } from "../lib/contants";
-import { Inter } from "next/font/google";
+import { Roboto, Instrument_Serif } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(URLs.site),
@@ -49,7 +56,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
+    <html
+      lang="en"
+      className={cn("font-sans", roboto.variable, instrumentSerif.variable)}
+    >
       <head>
         <script
           type="application/ld+json"
