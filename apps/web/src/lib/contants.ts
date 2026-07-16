@@ -18,7 +18,7 @@ export const OG_DESCRIPTION =
   "Analyze your ecommerce store from your customers perspective";
 
 export const URLs = {
-  site: "https://stride-studio.vercel.app",
+  site: "https://stride-assist.vercel.app/",
   x: "https://x.com/anirudhprmar",
 } as const;
 
