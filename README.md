@@ -9,10 +9,9 @@
 - Next.js 15 + React Flow for visual canvas
 - Focused on e-com stores
 
-- [x] deploy to vercel
-- [ ] Dynamic persona input form
-- [ ] Basic results page skeleton
+send url as query param(route it)
 
+- [x] Dynamic persona input form
 - [ ] E-com focused scraper (`packages/scraper`)
 - [ ] Main analyze API route
 - [ ] Connect form to backend
@@ -29,6 +28,5 @@
 - [ ] Beautiful styling for nodes and edges
 - [ ] Loading animations, error handling, rate limiting
 
-- [ ] Deploy to Vercel
 - [ ] Test with multiple e-com stores
 - [ ] Record demo (canvas in action)
