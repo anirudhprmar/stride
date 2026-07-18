@@ -11,8 +11,7 @@
 
 send url as query param(route it)
 
-- [x] E-com focused scraper (`packages/scraper`)
-- [ ] Main analyze API route
+- [x] Main analyze API route
 - [ ] Connect form to backend
 
 - [ ] Dynamic prompt generation for user personas

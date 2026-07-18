@@ -19,6 +19,7 @@
   "dependencies": {
     "puppeteer": "^25.3.0",
     "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth-lp": "^3.2.0"
+    "puppeteer-extra-plugin-stealth-lp": "^3.2.0",
+    "@repo/shared": "*"
   }
 }

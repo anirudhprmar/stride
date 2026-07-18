@@ -1,26 +1,9 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth-lp";
 import fs from "node:fs/promises";
+import { ScrapeResult, ExtractedData } from "@repo/shared/index";
 
 puppeteer.use(StealthPlugin());
-
-export interface ExtractedData {
-  title: string;
-  metaDescription: string;
-  h1: string;
-  firstParagraph: string;
-  ctas: string[];
-  trustSignals: string[];
-  products: {
-    name: string | undefined;
-    price: string | undefined;
-    description: string | undefined;
-  }[];
-}
-
-export type ScrapeResult =
-  | { success: true; data: ExtractedData & { screenshot: Buffer } }
-  | { success: false; error: string };
 
 export default async function scrapeStore(url: string): Promise<ScrapeResult> {
   if (url.includes("localhost")) {

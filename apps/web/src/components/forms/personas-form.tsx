@@ -30,13 +30,13 @@ import { useRouter } from "next/navigation";
 
 // Zod schemas for validation
 export const personaSchema = z.object({
-  Name: z.string().min(1, "Name is required"),
-  Age: z
+  name: z.string().min(1, "name is required"),
+  age: z
     .number()
-    .min(1, "Age must be at least 1")
-    .max(120, "Age must be under 120")
+    .min(1, "age must be at least 1")
+    .max(120, "age must be under 120")
     .optional(),
-  Occupation: z.string().optional(),
+  occupation: z.string().optional(),
   techSavviness: z.string().optional(),
   shoppingMotivations: z.string().optional(),
   targetGoal: z.string().optional(),
@@ -60,9 +60,9 @@ export type Persona = z.infer<typeof personaSchema>;
 // Prefilled templates based on count selected to provide premium quality out-of-the-box
 const DEFAULT_PERSONAS: Persona[] = [
   {
-    Name: "Sarah Miller",
-    Age: 28,
-    Occupation: "Marketing Coordinator",
+    name: "Sarah Miller",
+    age: 28,
+    occupation: "Marketing Coordinator",
     techSavviness: "High (Tech-savvy)",
     shoppingMotivations:
       "Values rapid checkouts, detailed clothing size calculators, and clear visual reviews.",
@@ -78,9 +78,9 @@ const DEFAULT_PERSONAS: Persona[] = [
     motivation: "Desire for convenience, self-improvement, and premium styling",
   },
   {
-    Name: "David Chen",
-    Age: 42,
-    Occupation: "Software Engineer",
+    name: "David Chen",
+    age: 42,
+    occupation: "Software Engineer",
     techSavviness: "Expert (Power User)",
     shoppingMotivations:
       "Requires technical datasheets, side-by-side comparison tables, and full refund terms.",
@@ -99,9 +99,9 @@ const DEFAULT_PERSONAS: Persona[] = [
       "Maximizing desk ergonomics, workspace optimization, and high performance",
   },
   {
-    Name: "Linda Peterson",
-    Age: 65,
-    Occupation: "Retired Educator",
+    name: "Linda Peterson",
+    age: 65,
+    occupation: "Retired Educator",
     techSavviness: "Low (Needs Simplicity)",
     shoppingMotivations:
       "Prefers simple navigation paths, large text sizes, and secure checkouts with clear FAQs.",
@@ -119,9 +119,9 @@ const DEFAULT_PERSONAS: Persona[] = [
       "Joy of family gifting, reliability of delivery, and order safety",
   },
   {
-    Name: "Marcus Brody",
-    Age: 21,
-    Occupation: "College Sophomore",
+    name: "Marcus Brody",
+    age: 21,
+    occupation: "College Sophomore",
     techSavviness: "High (Mobile First)",
     shoppingMotivations:
       "Motivated by student discounts, creator bundle coupons, and free returns.",
@@ -139,9 +139,9 @@ const DEFAULT_PERSONAS: Persona[] = [
     motivation: "Social integration, active lifestyle, audio accessibility",
   },
   {
-    Name: "Elena Rostova",
-    Age: 35,
-    Occupation: "Interior Architect",
+    name: "Elena Rostova",
+    age: 35,
+    occupation: "Interior Architect",
     techSavviness: "Very High",
     shoppingMotivations:
       "Appreciates visual whitespace, high-resolution imagery, and clean typography.",
@@ -190,9 +190,9 @@ export default function PersonasForm({
       }
       return (
         DEFAULT_PERSONAS[idx] || {
-          Name: `Persona ${idx + 1}`,
-          Age: 30,
-          Occupation: "General Shopper",
+          name: `Persona ${idx + 1}`,
+          age: 30,
+          occupation: "General Shopper",
           techSavviness: "Intermediate",
           shoppingMotivations:
             "Wants a simple product catalog and clear navigation.",
@@ -332,8 +332,8 @@ export default function PersonasForm({
                 <Tabs defaultValue="0" className="w-full">
                   <TabsList className="flex flex-wrap gap-1 mb-2 bg-muted/30 p-1 rounded-2xl border border-border/40 w-full justify-start">
                     {Array.from({ length: numOfPersonas }).map((_, idx) => {
-                      const pName =
-                        personasArray[idx]?.Name || `Persona ${idx + 1}`;
+                      const pname =
+                        personasArray[idx]?.name || `Persona ${idx + 1}`;
                       return (
                         <TabsTrigger
                           key={idx}
@@ -341,14 +341,14 @@ export default function PersonasForm({
                           className="flex-1 max-w-45"
                         >
                           <User className="size-4 shrink-0 mr-1.5" />
-                          <span className="truncate max-w-30">{pName}</span>
+                          <span className="truncate max-w-30">{pname}</span>
                         </TabsTrigger>
                       );
                     })}
                   </TabsList>
 
                   {Array.from({ length: numOfPersonas }).map((_, idx) => {
-                    const activePersona = personasArray[idx] || { Name: "" };
+                    const activePersona = personasArray[idx] || { name: "" };
 
                     const updateActiveField = (
                       key: keyof Persona,
@@ -375,7 +375,7 @@ export default function PersonasForm({
                           <CardHeader className="border-b border-border/20 pb-4">
                             <CardTitle className="font-serif text-base font-semibold text-foreground">
                               Configure Profile:{" "}
-                              {activePersona.Name || `Persona ${idx + 1}`}
+                              {activePersona.name || `Persona ${idx + 1}`}
                             </CardTitle>
                             <CardDescription>
                               Define the user context, target parameters, and
@@ -393,16 +393,16 @@ export default function PersonasForm({
 
                                 <Field>
                                   <FieldLabel htmlFor={`p-name-${idx}`}>
-                                    Full Name
+                                    Full name
                                   </FieldLabel>
                                   <InputGroup>
                                     <InputGroupInput
                                       id={`p-name-${idx}`}
                                       placeholder="e.g. Sarah Miller"
-                                      value={activePersona.Name || ""}
+                                      value={activePersona.name || ""}
                                       onChange={(e) =>
                                         updateActiveField(
-                                          "Name",
+                                          "name",
                                           e.target.value,
                                         )
                                       }
@@ -414,18 +414,18 @@ export default function PersonasForm({
                                 <div className="grid grid-cols-2 gap-4">
                                   <Field>
                                     <FieldLabel htmlFor={`p-age-${idx}`}>
-                                      Age
+                                      age
                                     </FieldLabel>
                                     <InputGroup>
                                       <InputGroupInput
                                         id={`p-age-${idx}`}
                                         type="number"
                                         placeholder="e.g. 28"
-                                        value={activePersona.Age ?? ""}
+                                        value={activePersona.age ?? ""}
                                         onChange={(e) => {
                                           const val = e.target.value;
                                           updateActiveField(
-                                            "Age",
+                                            "age",
                                             val === ""
                                               ? undefined
                                               : Number(val),
@@ -437,16 +437,16 @@ export default function PersonasForm({
 
                                   <Field>
                                     <FieldLabel htmlFor={`p-occ-${idx}`}>
-                                      Occupation
+                                      occupation
                                     </FieldLabel>
                                     <InputGroup>
                                       <InputGroupInput
                                         id={`p-occ-${idx}`}
                                         placeholder="e.g. Designer"
-                                        value={activePersona.Occupation || ""}
+                                        value={activePersona.occupation || ""}
                                         onChange={(e) =>
                                           updateActiveField(
-                                            "Occupation",
+                                            "occupation",
                                             e.target.value,
                                           )
                                         }
