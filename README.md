@@ -11,8 +11,7 @@
 
 send url as query param(route it)
 
-- [x] Dynamic persona input form
-- [ ] E-com focused scraper (`packages/scraper`)
+- [x] E-com focused scraper (`packages/scraper`)
 - [ ] Main analyze API route
 - [ ] Connect form to backend
 
