@@ -221,20 +221,20 @@ export default function PersonasForm({
       }}
     >
       <FieldGroup>
-        <div className="space-y-6 animate-fade-in">
-          <div className="text-center max-w-md mx-auto space-y-2">
-            <h2 className="text-xl font-serif">
+        <div className="animate-fade-in space-y-6">
+          <div className="mx-auto max-w-md space-y-2 text-center">
+            <h2 className="font-serif text-xl">
               How many visitor personas do you want to simulate?
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Select between 1 and 5 unique personas. Each persona represents a
               different demographic segment with unique shopping habits.
             </p>
           </div>
 
-          <div className="py-2 flex flex-col items-center space-y-6">
+          <div className="flex flex-col items-center space-y-6 py-2">
             {/* Visual count picker cards */}
-            <div className="grid grid-cols-5 gap-3 w-full max-w-lg">
+            <div className="grid w-full max-w-lg grid-cols-5 gap-3">
               {[1, 2, 3, 4, 5].map((num) => {
                 const isSelected = numOfPersonas === num;
                 return (
@@ -243,14 +243,14 @@ export default function PersonasForm({
                     type="button"
                     onClick={() => handleNumOfPersonasChange(num)}
                     className={cn(
-                      "flex flex-col items-center justify-center py-4 px-2 rounded-2xl border transition-all cursor-pointer select-none",
+                      "flex cursor-pointer flex-col items-center justify-center rounded-2xl border px-2 py-4 transition-all select-none",
                       isSelected
-                        ? "bg-primary text-primary-foreground border-primary shadow-md scale-105"
+                        ? "bg-primary text-primary-foreground border-primary scale-105 shadow-md"
                         : "bg-muted/10 hover:bg-muted/30 border-border text-foreground/80",
                     )}
                   >
-                    <span className="text-2xl font-bold font-serif">{num}</span>
-                    <span className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1 font-medium group-hover:text-foreground">
+                    <span className="font-serif text-2xl font-bold">{num}</span>
+                    <span className="text-muted-foreground group-hover:text-foreground mt-1 text-[10px] font-medium tracking-wider uppercase">
                       {num === 1 ? "Audience" : "Audiences"}
                     </span>
                   </button>
@@ -260,7 +260,7 @@ export default function PersonasForm({
 
             {/* Slider backup */}
             <div className="w-full max-w-md space-y-2">
-              <div className="flex justify-between text-xs text-muted-foreground px-1">
+              <div className="text-muted-foreground flex justify-between px-1 text-xs">
                 <span>1 (Solo Audit)</span>
                 <span>5 (Full Panel Audit)</span>
               </div>
@@ -278,10 +278,10 @@ export default function PersonasForm({
               />
             </div>
 
-            <div className="flex items-start gap-3 bg-muted/20 border border-border/40 rounded-2xl p-4 max-w-md w-full">
-              <Users className="size-5 text-primary shrink-0 mt-0.5" />
-              <div className="text-xs space-y-1 text-left">
-                <span className="font-semibold block">
+            <div className="bg-muted/20 border-border/40 flex w-full max-w-md items-start gap-3 rounded-2xl border p-4">
+              <Users className="text-primary mt-0.5 size-5 shrink-0" />
+              <div className="space-y-1 text-left text-xs">
+                <span className="block font-semibold">
                   {numOfPersonas === 1 &&
                     "Single Persona: Core Focused Analysis"}
                   {numOfPersonas === 2 &&
@@ -317,20 +317,20 @@ export default function PersonasForm({
             const personasArray = field.state.value || [];
 
             return (
-              <div className="space-y-4 pt-4 border-t border-border/40">
-                <div className="flex justify-between items-center pb-2">
+              <div className="border-border/40 space-y-4 border-t pt-4">
+                <div className="flex items-center justify-between pb-2">
                   <div>
                     <h3 className="text-base font-semibold">
                       Configure Persona Profiles
                     </h3>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-xs">
                       Tweak demographic details and simulation behaviors below.
                     </p>
                   </div>
                 </div>
 
                 <Tabs defaultValue="0" className="w-full">
-                  <TabsList className="flex flex-wrap gap-1 mb-2 bg-muted/30 p-1 rounded-2xl border border-border/40 w-full justify-start">
+                  <TabsList className="bg-muted/30 border-border/40 mb-2 flex w-full flex-wrap justify-start gap-1 rounded-2xl border p-1">
                     {Array.from({ length: numOfPersonas }).map((_, idx) => {
                       const pname =
                         personasArray[idx]?.name || `Persona ${idx + 1}`;
@@ -338,10 +338,10 @@ export default function PersonasForm({
                         <TabsTrigger
                           key={idx}
                           value={String(idx)}
-                          className="flex-1 max-w-45"
+                          className="max-w-45 flex-1"
                         >
-                          <User className="size-4 shrink-0 mr-1.5" />
-                          <span className="truncate max-w-30">{pname}</span>
+                          <User className="mr-1.5 size-4 shrink-0" />
+                          <span className="max-w-30 truncate">{pname}</span>
                         </TabsTrigger>
                       );
                     })}
@@ -371,9 +371,9 @@ export default function PersonasForm({
                         value={String(idx)}
                         className="mt-2"
                       >
-                        <Card className="border border-border/80 bg-card rounded-2xl shadow-sm">
-                          <CardHeader className="border-b border-border/20 pb-4">
-                            <CardTitle className="font-serif text-base font-semibold text-foreground">
+                        <Card className="border-border/80 bg-card rounded-2xl border shadow-sm">
+                          <CardHeader className="border-border/20 border-b pb-4">
+                            <CardTitle className="text-foreground font-serif text-base font-semibold">
                               Configure Profile:{" "}
                               {activePersona.name || `Persona ${idx + 1}`}
                             </CardTitle>
@@ -384,10 +384,10 @@ export default function PersonasForm({
                           </CardHeader>
 
                           <CardContent className="space-y-6 pt-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                               {/* Left Column: Demographics & Core Info */}
                               <div className="space-y-4">
-                                <h4 className="text-xs font-semibold text-primary uppercase tracking-wider">
+                                <h4 className="text-primary text-xs font-semibold tracking-wider uppercase">
                                   1. Core Profile
                                 </h4>
 
@@ -564,7 +564,7 @@ export default function PersonasForm({
 
                               {/* Right Column: Behavioral Parameters & Psychology */}
                               <div className="space-y-4">
-                                <h4 className="text-xs font-semibold text-primary uppercase tracking-wider">
+                                <h4 className="text-primary text-xs font-semibold tracking-wider uppercase">
                                   2. Shopping Psychology & Goals
                                 </h4>
 
@@ -696,7 +696,7 @@ export default function PersonasForm({
 
       <Field
         orientation="horizontal"
-        className="mt-10 pt-4 border-t border-border/40 flex justify-between"
+        className="border-border/40 mt-10 flex justify-between border-t pt-4"
       >
         <Button
           type="button"
@@ -710,7 +710,7 @@ export default function PersonasForm({
         <Button
           type="submit"
           form="personas-form"
-          className="gap-2 bg-primary text-primary-foreground hover:bg-primary/80 rounded-2xl px-5 h-9 font-medium"
+          className="bg-primary text-primary-foreground hover:bg-primary/80 h-9 gap-2 rounded-2xl px-5 font-medium"
         >
           <Play className="size-4 fill-current" /> Start AI Analysis
         </Button>

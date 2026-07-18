@@ -11,7 +11,6 @@
 
 send url as query param(route it)
 
-- [x] Main analyze API route
 - [ ] Connect form to backend
 
 - [ ] Dynamic prompt generation for user personas

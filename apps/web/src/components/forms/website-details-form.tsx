@@ -90,12 +90,12 @@ export default function WebsiteDetailsForm({
                   Define who your ideal customers or users are to help us tailor
                   the analysis more accurately.
                 </FieldDescription>
-                <InputGroup className="h-auto min-h-8 flex-wrap p-1.5 gap-1.5">
+                <InputGroup className="h-auto min-h-8 flex-wrap gap-1.5 p-1.5">
                   {field.state.value &&
                     field.state.value.map((tag: string) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1 bg-secondary text-secondary-foreground text-xs px-2.5 py-0.5 rounded-md border border-border select-none"
+                        className="bg-secondary text-secondary-foreground border-border inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 text-xs select-none"
                       >
                         <span>{tag}</span>
                         <button
@@ -143,11 +143,11 @@ export default function WebsiteDetailsForm({
                         : ""
                     }
                     autoComplete="off"
-                    className="flex-1 min-w-30 h-7 bg-transparent border-0 ring-0 focus-visible:ring-0 px-1 py-0 shadow-none dark:bg-transparent"
+                    className="h-7 min-w-30 flex-1 border-0 bg-transparent px-1 py-0 shadow-none ring-0 focus-visible:ring-0 dark:bg-transparent"
                   />
                 </InputGroup>
 
-                <div className="flex flex-wrap gap-1.5 mt-2">
+                <div className="mt-2 flex flex-wrap gap-1.5">
                   {SUGGESTED_AUDIENCES.map((audience) => {
                     const isSelected = field.state.value?.includes(audience);
                     return (
@@ -167,7 +167,7 @@ export default function WebsiteDetailsForm({
                           }
                         }}
                         className={cn(
-                          "inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border transition-all cursor-pointer select-none",
+                          "inline-flex cursor-pointer items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-all select-none",
                           isSelected
                             ? "bg-primary text-primary-foreground border-primary font-medium"
                             : "bg-muted/30 hover:bg-muted/80 hover:text-foreground text-muted-foreground border-border",

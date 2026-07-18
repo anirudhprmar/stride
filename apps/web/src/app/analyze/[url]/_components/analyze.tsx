@@ -13,16 +13,16 @@ export default function AnalyzeClient({ url }: { url: string }) {
       <div className="mb-8">
         <Progress
           value={progress}
-          className="w-full h-1 absolute top-0 inset-x-0"
+          className="absolute inset-x-0 top-0 h-1 w-full"
         />
       </div>
       {currentStep === 1 && (
         <div className="space-y-6">
-          <div className="border-b border-border pb-4">
-            <h1 className="text-3xl font-serif tracking-tight font-normal">
+          <div className="border-border border-b pb-4">
+            <h1 className="font-serif text-3xl font-normal tracking-tight">
               Website Details
             </h1>
-            <p className="text-muted-foreground text-sm mt-1">
+            <p className="text-muted-foreground mt-1 text-sm">
               Configure target audience and objectives for {url}
             </p>
           </div>
@@ -37,11 +37,11 @@ export default function AnalyzeClient({ url }: { url: string }) {
 
       {currentStep === 2 && (
         <div className="space-y-6">
-          <div className="border-b border-border pb-4">
-            <h1 className="text-3xl font-serif tracking-tight font-normal">
+          <div className="border-border border-b pb-4">
+            <h1 className="font-serif text-3xl font-normal tracking-tight">
               Create Personas
             </h1>
-            <p className="text-muted-foreground text-sm mt-1">
+            <p className="text-muted-foreground mt-1 text-sm">
               Create unique visitor personas to simulate
             </p>
           </div>
