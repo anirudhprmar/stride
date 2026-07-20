@@ -1,3 +1,4 @@
+"use client";
 import { Globe } from "lucide-react";
 import {
   InputGroup,
@@ -5,9 +6,12 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "../ui/input-group";
-import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Hero() {
+  const [URL, setURL] = useState("");
+  const router = useRouter();
   return (
     <section className="relative container mx-auto flex min-h-screen max-w-screen-2xl flex-col items-center justify-center px-4">
       <div className="absolute top-0 right-0 left-0 flex h-5 w-full items-center justify-center bg-black text-white">
@@ -28,11 +32,23 @@ export default function Hero() {
           <InputGroup className="mx-auto h-16 max-w-sm">
             <div className="flex w-full items-center gap-2 p-2">
               <Globe className="text-xl text-neutral-500" />
-              <InputGroupInput placeholder="Enter your store URL" />
+              <InputGroupInput
+                onChange={(e) => setURL(e.target.value)}
+                placeholder="Enter your store URL"
+              />
             </div>
 
             <InputGroupAddon align="block-end">
-              <InputGroupButton variant="default" size="sm" className="ml-auto">
+              <InputGroupButton
+                variant="default"
+                size="sm"
+                className="ml-auto"
+                onClick={() => {
+                  router.push(
+                    `/analyze?store_url=${URL.replace("https://", "").replace("/", "")}`,
+                  );
+                }}
+              >
                 Analyze
               </InputGroupButton>
             </InputGroupAddon>

@@ -69,12 +69,13 @@ export async function POST(request: Request) {
       await request.json(),
     );
     const data: ScrapeResult = await scrapeStore(url);
-
+    console.log("data after scraping", data);
     if (!data.success) {
       throw new Error("Failed to scrape store");
     }
 
     const analyzedPersonas = await parallelPersonaAnalysis(personas, data.data);
+    console.log("data after analyzing personas", analyzedPersonas);
 
     const { text } = await generateText({
       model,
@@ -128,8 +129,16 @@ export async function POST(request: Request) {
           "limits": ["List of limitations"]
         }`,
     });
+    console.log("full report from AI", text);
 
-    return Response.json({ analyzedPersonas, fullReport: text });
+    return Response.json({
+      analyzedPersonas,
+      fullReport: text,
+      storeInfo: {
+        title: data.data.title,
+        metaDescription: data.data.metaDescription,
+      },
+    });
   } catch (error) {
     return Response.json({ error });
   }

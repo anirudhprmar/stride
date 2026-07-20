@@ -161,9 +161,11 @@ const DEFAULT_PERSONAS: Persona[] = [
 export default function PersonasForm({
   setCurrentState,
   allPersonas,
+  setProgress,
 }: {
   setCurrentState: (val: number) => void;
   allPersonas: (values: Persona[]) => void;
+  setProgress: (val: number) => void;
 }) {
   const [numOfPersonas, setNumOfPersonas] = useState(2);
   const router = useRouter();
@@ -178,6 +180,7 @@ export default function PersonasForm({
     onSubmit: ({ value }) => {
       allPersonas(value.personas);
       setCurrentState(3);
+      setProgress((3 / 4) * 100);
     },
   });
 

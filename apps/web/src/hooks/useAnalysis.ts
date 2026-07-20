@@ -1,0 +1,117 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { Persona } from "@/components/forms/personas-form";
+
+interface UseAnalysisProps {
+  url: string;
+  personas: Persona[];
+  websiteDetails: {
+    industry: string[];
+    analysisObjectives: string;
+  } | null;
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
+  setProgress: (progress: number) => void;
+}
+
+export default function useAnalysis({
+  url,
+  personas,
+  websiteDetails,
+  currentStep,
+  setCurrentStep,
+  setProgress,
+}: UseAnalysisProps) {
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [scrapedData, setScrapedData] = useState<{
+    title: string;
+    metaDescription: string;
+  } | null>(null);
+
+  useEffect(() => {
+    if (currentStep !== 3) return;
+
+    let active = true;
+    setIsAnalyzing(true);
+    setAnalysisError(null);
+
+    const runAnalysis = async () => {
+      try {
+        const response = await fetch("/api/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            url,
+            personas,
+            industry: websiteDetails?.industry,
+            analysisObjectives: websiteDetails?.analysisObjectives,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to run analysis. Please try again.");
+        }
+
+        const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error.message || "Failed to run analysis.");
+        }
+
+        if (active) {
+          let parsedReport = null;
+          try {
+            parsedReport =
+              typeof data.fullReport === "string"
+                ? JSON.parse(data.fullReport)
+                : data.fullReport;
+          } catch (e) {
+            console.error("Failed to parse report:", e);
+          }
+
+          setScrapedData(data.storeInfo || null);
+          setAnalysisResult({
+            analyzedPersonas: data.analyzedPersonas,
+            fullReport: parsedReport,
+          });
+          setIsAnalyzing(false);
+          setCurrentStep(4);
+          setProgress((4 / 4) * 100);
+        }
+      } catch (err: any) {
+        if (active) {
+          setAnalysisError(err.message || "An unexpected error occurred.");
+          setIsAnalyzing(false);
+        }
+      }
+    };
+
+    runAnalysis();
+
+    return () => {
+      active = false;
+    };
+  }, [currentStep, url, personas, websiteDetails, setCurrentStep]);
+
+  const reset = () => {
+    setAnalysisResult(null);
+    setScrapedData(null);
+    setAnalysisError(null);
+    setIsAnalyzing(false);
+    setCurrentStep(1);
+    setProgress(0);
+  };
+
+  return {
+    isAnalyzing,
+    analysisResult,
+    analysisError,
+    scrapedData,
+    setAnalysisError,
+    reset,
+  };
+}

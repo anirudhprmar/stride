@@ -9,9 +9,9 @@
 - Next.js 15 + React Flow for visual canvas
 - Focused on e-com stores
 
-- [ ] Implement React Flow canvas showing personas as nodes
-- [ ] Animate nodes during analysis (thinking, researching, completed)
-- [ ] Build aggregated report with prioritized fixes
+- [x] Implement React Flow canvas showing personas as nodes
+- [x] Animate nodes during analysis (thinking, researching, completed)
+- [x] Build aggregated report with prioritized fixes
 
 - [ ] Test with multiple e-com stores
 - [ ] Record demo (canvas in action)

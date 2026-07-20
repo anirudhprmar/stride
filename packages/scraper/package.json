@@ -17,9 +17,10 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/shared": "*",
+    "kind-of": "^6.0.3",
     "puppeteer": "^25.3.0",
     "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth-lp": "^3.2.0",
-    "@repo/shared": "*"
+    "puppeteer-extra-plugin-stealth-lp": "^3.2.0"
   }
 }
