@@ -42,8 +42,13 @@ const SUGGESTED_AUDIENCES = [
 
 export default function WebsiteDetailsForm({
   setCurrentState,
+  formResults,
 }: {
   setCurrentState: (val: number) => void;
+  formResults: (values: {
+    industry: string[];
+    analysisObjectives: string;
+  }) => void;
 }) {
   const [inputValue, setInputValue] = useState("");
 
@@ -55,7 +60,8 @@ export default function WebsiteDetailsForm({
     validators: {
       onSubmit: formSchema,
     },
-    onSubmit: () => {
+    onSubmit: async ({ value }) => {
+      formResults(value);
       setCurrentState(2);
     },
   });

@@ -57,7 +57,6 @@ export const formSchema = z.object({
 
 export type Persona = z.infer<typeof personaSchema>;
 
-// Prefilled templates based on count selected to provide premium quality out-of-the-box
 const DEFAULT_PERSONAS: Persona[] = [
   {
     name: "Sarah Miller",
@@ -161,8 +160,10 @@ const DEFAULT_PERSONAS: Persona[] = [
 
 export default function PersonasForm({
   setCurrentState,
+  allPersonas,
 }: {
   setCurrentState: (val: number) => void;
+  allPersonas: (values: Persona[]) => void;
 }) {
   const [numOfPersonas, setNumOfPersonas] = useState(2);
   const router = useRouter();
@@ -175,11 +176,11 @@ export default function PersonasForm({
       onSubmit: formSchema,
     },
     onSubmit: ({ value }) => {
-      router.push("/analyze?personas=" + JSON.stringify(value.personas));
+      allPersonas(value.personas);
+      setCurrentState(3);
     },
   });
 
-  // Handle setting count and prefilling values correctly
   const handleNumOfPersonasChange = (count: number) => {
     setNumOfPersonas(count);
     const currentValues = form.state.values.personas || [];

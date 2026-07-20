@@ -59,11 +59,15 @@ const requestSchema = z.object({
       motivation: z.string().optional(),
     }),
   ),
+  industry: z.array(z.string()).optional(),
+  analysisObjectives: z.string().optional(),
 });
 
 export async function POST(request: Request) {
   try {
-    const { url, personas } = requestSchema.parse(await request.json());
+    const { url, personas, industry, analysisObjectives } = requestSchema.parse(
+      await request.json(),
+    );
     const data: ScrapeResult = await scrapeStore(url);
 
     if (!data.success) {
@@ -85,13 +89,16 @@ export async function POST(request: Request) {
         Use evidence from the simulations to support your conclusions.`,
       prompt: `Store URL: ${url}
 
+        Industry: ${industry?.join(", ") || "Not provided"}
+        Analysis Objectives: ${analysisObjectives || "Not provided"}
+
         Persona Simulation Results:
         ${JSON.stringify(analyzedPersonas, null, 2)}
 
         Create a final synthesized report in valid JSON format using this exact structure:
 
         {
-          "title": "EcomRoast Analysis Report",
+          "title": "Stride Analysis Report",
           "tested": "${url}",
           "generated_at": "${new Date().toISOString().split("T")[0]}",
           "verdict": "One strong summary sentence about overall store performance",
