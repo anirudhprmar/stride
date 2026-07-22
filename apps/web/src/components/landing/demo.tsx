@@ -19,14 +19,17 @@ export default function Demo() {
           className="w-full rounded-xl object-contain"
         />
 
-        <iframe
+        <video
           className="absolute top-1/2 left-1/2 aspect-video w-[90%] max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-md sm:w-[85%] md:w-[80%]"
-          src=""
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        ></iframe>
+          src="https://c4qrl532oo.ufs.sh/f/s0GPcE56MbtBi7h0wIJYeG3K1B8V4stuLkdD9Mw0AmyoIhCN"
+          title="Video of stride in action"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          controls
+        />
       </div>
     </section>
   );

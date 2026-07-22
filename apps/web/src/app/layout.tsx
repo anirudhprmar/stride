@@ -13,6 +13,7 @@ import { websiteSchema, organizationSchema } from "../lib/contants";
 import { Roboto, Instrument_Serif } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/next";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -76,6 +77,7 @@ export default function RootLayout({
           </p>
         </div>
         {children}
+        <Analytics />
         <Toaster />
       </body>
     </html>

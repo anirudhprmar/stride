@@ -17,7 +17,7 @@ export default function Features() {
       <Feature
         title="Let AI Analyze your store"
         description="At this point sit back and relax while AI does the analysis for you."
-        image=""
+        image="/feat3.png"
       />
       {/* <Feature
            title='Save Review for later'

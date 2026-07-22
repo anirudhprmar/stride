@@ -98,10 +98,8 @@ export default function PersonaNode({ data }: { data: PersonaNodeData }) {
                 Key Friction Points:
               </span>
               <ul className="text-muted-foreground/90 list-disc space-y-0.5 pl-4">
-                {result.insights.slice(0, 2).map((insight, idx) => (
-                  <li key={idx} className="line-clamp-2">
-                    {insight}
-                  </li>
+                {result.insights.map((insight, idx) => (
+                  <li key={idx}>{insight}</li>
                 ))}
               </ul>
             </div>

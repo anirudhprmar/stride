@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createGoogle } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { ScrapeResult, ExtractedData } from "@repo/shared/index";
+import { safeJsonParse } from "@/lib/utils";
 
 interface PersonaProps {
   name: string;
@@ -132,9 +133,11 @@ export async function POST(request: Request) {
         }`,
     });
 
+    const parsedReport = safeJsonParse(text);
+
     return Response.json({
       analyzedPersonas,
-      fullReport: text,
+      fullReport: parsedReport || text,
       storeInfo: {
         title: data.data.title,
         metaDescription: data.data.metaDescription,
@@ -229,8 +232,21 @@ Return ONLY valid JSON with this structure:
     }`,
     });
 
-    const { score, clarity, insights, priority, recommendedChanges } =
-      JSON.parse(text);
+    const parsedPersona = safeJsonParse(text, {
+      score: 0,
+      clarity: 0,
+      insights: [],
+      priority: "Medium",
+      recommendedChanges: [],
+    });
+
+    const {
+      score = 0,
+      clarity = 0,
+      insights = [],
+      priority = "Medium",
+      recommendedChanges = [],
+    } = parsedPersona || {};
 
     analyzedPersonas.push({
       personaName: person.name,

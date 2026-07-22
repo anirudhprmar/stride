@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Persona } from "@/components/forms/personas-form";
+import { safeJsonParse } from "@/lib/utils";
 
 interface UseAnalysisProps {
   url: string;
@@ -68,15 +69,7 @@ export default function useAnalysis({
         }
 
         if (active) {
-          let parsedReport = null;
-          try {
-            parsedReport =
-              typeof data.fullReport === "string"
-                ? JSON.parse(data.fullReport)
-                : data.fullReport;
-          } catch (e) {
-            console.error("Failed to parse report:", e);
-          }
+          const parsedReport = safeJsonParse(data.fullReport);
 
           setScrapedData(data.storeInfo || null);
           setAnalysisResult({

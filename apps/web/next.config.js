@@ -6,6 +6,15 @@ const nextConfig = {
     "puppeteer-extra",
     "puppeteer-extra-plugin-stealth-lp",
   ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "c4qrl532oo.ufs.sh",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
