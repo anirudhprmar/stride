@@ -69,7 +69,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
+      <body className="selection:bg-black/10" suppressHydrationWarning>
+        <div className="absolute top-0 right-0 left-0 z-50 flex h-7 w-full items-center justify-center bg-black px-2 text-white sm:h-8">
+          <p className="truncate text-center text-[11px] font-medium tracking-widest uppercase sm:text-xs md:text-sm">
+            EXPERIENCE YOUR ECOM STORE
+          </p>
+        </div>
         {children}
         <Toaster />
       </body>
