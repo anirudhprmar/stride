@@ -37,7 +37,7 @@ const google = createGoogle({
 const model = google("gemini-3.1-flash-lite");
 
 const requestSchema = z.object({
-  url: z.url(),
+  url: z.string(),
   personas: z.array(
     z.object({
       name: z.string().min(1, "Name is required"),
@@ -65,17 +65,19 @@ const requestSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const { url, personas, industry, analysisObjectives } = requestSchema.parse(
-      await request.json(),
-    );
+    const {
+      url: rawUrl,
+      personas,
+      industry,
+      analysisObjectives,
+    } = requestSchema.parse(await request.json());
+    const url = rawUrl.match(/^https?:\/\//) ? rawUrl : `https://${rawUrl}`;
     const data: ScrapeResult = await scrapeStore(url);
-    console.log("data after scraping", data);
     if (!data.success) {
       throw new Error("Failed to scrape store");
     }
 
     const analyzedPersonas = await parallelPersonaAnalysis(personas, data.data);
-    console.log("data after analyzing personas", analyzedPersonas);
 
     const { text } = await generateText({
       model,
@@ -129,7 +131,6 @@ export async function POST(request: Request) {
           "limits": ["List of limitations"]
         }`,
     });
-    console.log("full report from AI", text);
 
     return Response.json({
       analyzedPersonas,
@@ -140,13 +141,25 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    return Response.json({ error });
+    console.error("Analyze API error:", error);
+    if (error instanceof z.ZodError) {
+      return Response.json(
+        { error: "Invalid request data", details: error.issues },
+        { status: 400 },
+      );
+    }
+    return Response.json(
+      {
+        error: error instanceof Error ? error.message : "Internal server error",
+      },
+      { status: 500 },
+    );
   }
 }
 
 async function parallelPersonaAnalysis(
   personas: PersonaProps[],
-  data: ExtractedData & { screenshot: Buffer },
+  data: ExtractedData,
 ) {
   const storeInfo = {
     title: data.title,
@@ -156,7 +169,12 @@ async function parallelPersonaAnalysis(
     ctas: data.ctas,
     trustSignals: data.trustSignals,
     products: data.products,
-    screenshot: data.screenshot,
+    brand: data.brand,
+    valueProposition: data.valueProposition,
+    announcement: data.announcement,
+    navigation: data.navigation,
+    capabilities: data.capabilities,
+    catalog: data.catalog,
   };
 
   const analyzedPersonas: PersonaResult[] = [];
@@ -188,7 +206,7 @@ async function parallelPersonaAnalysis(
 
       Always be honest, evidence-based, and constructive.`,
       prompt: `Store Data:
-${JSON.stringify(storeInfo, null, 2)}
+${JSON.stringify(storeInfo)}
 
 Persona:
 ${JSON.stringify(person, null, 2)}

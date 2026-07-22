@@ -45,7 +45,7 @@ export default function Hero() {
                 className="ml-auto"
                 onClick={() => {
                   router.push(
-                    `/analyze?store_url=${URL.replace("https://", "").replace("/", "")}`,
+                    `/analyze/${encodeURIComponent(URL.replace("https://", "").replace("/", ""))}`,
                   );
                 }}
               >

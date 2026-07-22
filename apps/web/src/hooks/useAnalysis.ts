@@ -53,13 +53,18 @@ export default function useAnalysis({
           }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-          throw new Error("Failed to run analysis. Please try again.");
+          const message =
+            data.error ||
+            data.details?.[0]?.message ||
+            "Failed to run analysis. Please try again.";
+          throw new Error(message);
         }
 
-        const data = await response.json();
         if (data.error) {
-          throw new Error(data.error.message || "Failed to run analysis.");
+          throw new Error(data.error);
         }
 
         if (active) {

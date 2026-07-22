@@ -35,7 +35,6 @@ export default function AnalyzeClient({ url }: { url: string }) {
   });
 
   const isCanvasView = currentStep === 3 || currentStep === 4;
-
   return (
     <div
       className={cn(
